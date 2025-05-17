@@ -4,10 +4,17 @@
  */
 package Controladores;
 
+import Vistas.Login_VIEW;
+
 /**
  *
  * @author User
  */
 public class MAIN {
-    
+   public static void main(String[] args) {
+       //Prueba Login
+        Login_VIEW login = new Login_VIEW();
+        LoginControlador con = new LoginControlador(login);
+        login.setVisible(true);
+    }
 }
