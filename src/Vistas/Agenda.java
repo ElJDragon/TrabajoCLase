@@ -15,7 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import java.sql.*;
-
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import javax.swing.JOptionPane;
 
 public class Agenda extends javax.swing.JFrame {
 
@@ -28,8 +30,8 @@ public class Agenda extends javax.swing.JFrame {
 
     public Agenda() {
         initComponents();
-        //configurarCalendario();
-       // configurarSpinnerHora();
+        configurarCalendario();
+        configurarSpinnerHora();
     }
 
     public void setCalendarListener(CalendarListener listener) {
@@ -380,7 +382,7 @@ public class Agenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnAgregarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarEventoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jBtnAgregarEventoActionPerformed
 
     private void jCalendarAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jCalendarAncestorAdded

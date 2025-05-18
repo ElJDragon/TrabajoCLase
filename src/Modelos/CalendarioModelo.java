@@ -32,9 +32,8 @@ public class CalendarioModelo {
         pstmt.setTime(5, hora);
         pstmt.executeUpdate();
         
-        // Obtener el ID generado (aunque no lo usemos directamente aquí)
         try (ResultSet rs = pstmt.getGeneratedKeys()) {
-            return rs.next(); // Retorna true si se insertó correctamente
+            return rs.next(); 
         }
     }
 }

@@ -7,9 +7,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
+
+
 
 public class CalendarioControlador {    
     private Agenda vista;
@@ -17,21 +19,30 @@ public class CalendarioControlador {
     private Connection conexion;
     private String usuarioActual;
 
-    public CalendarioControlador(Agenda vista, String usuario) {
-        this.vista = vista;
-        this.usuarioActual = usuario;
-        this.conexion = new ConexionBD().conectar();
-        
-        if (this.conexion != null) {
-            this.modelo = new CalendarioModelo(conexion);
-            configurarListeners();
-            cargarFechasGuardadas();
-        } else {
+    public CalendarioControlador(Agenda vista, String usuarioId) {
+    this.vista = vista;
+    this.usuarioActual = usuarioId;
+    this.conexion = new ConexionBD().conectar();
+    
+    if (this.conexion != null) {
+        try {
+            // Verifica que la conexión sea válida
+            if (this.conexion.isValid(2)) {
+                this.modelo = new CalendarioModelo(conexion);
+                configurarListeners();
+                cargarFechasGuardadas();
+            }
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(vista, 
-                "Error al conectar con la base de datos", 
+                "Error al validar la conexión: " + ex.getMessage(), 
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(vista, 
+            "Error al conectar con la base de datos", 
+            "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
     
     private void configurarListeners() {
     vista.setAgregarEventListener(() -> {
@@ -47,13 +58,25 @@ public class CalendarioControlador {
             return;
         }
         
+        // Validar fecha/hora NO pasada
+        LocalDateTime fechaHoraEvento = LocalDateTime.of(fecha, hora.toLocalTime());
+        LocalDateTime ahora = LocalDateTime.now();
+        
+        if (fechaHoraEvento.isBefore(ahora)) {
+            JOptionPane.showMessageDialog(vista, 
+                "No puedes agendar eventos en fechas pasadas", 
+                "Error de validación", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         try {
             if (modelo.guardarEvento(usuarioActual, titulo, descripcion, fecha, hora)) {
                 JOptionPane.showMessageDialog(vista, 
                     "Evento guardado correctamente", 
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 cargarFechasGuardadas();
-                // Nota: Para recordatorios necesitarías obtener el ID generado
+                vista.limpiarCampos();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(vista, 
@@ -75,6 +98,7 @@ public class CalendarioControlador {
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
     
     public void cerrarConexion() {
         try {

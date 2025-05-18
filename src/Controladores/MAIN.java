@@ -4,7 +4,6 @@
  */
 package Controladores;
 
-import Vistas.Agenda;
 import Vistas.Login_VIEW;
 
 /**
@@ -12,24 +11,11 @@ import Vistas.Login_VIEW;
  * @author User
  */
 public class MAIN {
-public static void main(String args[]) {
-    // Configuración del look and feel...
-    
-    java.awt.EventQueue.invokeLater(() -> {
-        // Simular usuario logueado
-        String usuario = "juan";
-        
-        Agenda vista = new Agenda();
-        CalendarioControlador controlador = new CalendarioControlador(vista, usuario);
-        
-        vista.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                controlador.cerrarConexion();
-            }
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(() -> {
+            Login_VIEW login = new Login_VIEW();
+            LoginControlador con = new LoginControlador(login);
+            login.setVisible(true);
         });
-        
-        vista.setVisible(true);
-    });
-}
+    }
 }

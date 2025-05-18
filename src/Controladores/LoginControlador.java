@@ -9,7 +9,6 @@ import Modelos.SesionUsuario;
 import Modelos.Usuario_Model;
 import Vistas.Agenda;
 import Vistas.Login_VIEW;
-import Vistas.MenuPrincipal;
 import java.awt.Color;
 import java.sql.*;
 import java.awt.event.ActionEvent;
@@ -20,8 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
-import javax.swing.text.View;
-import org.w3c.dom.UserDataHandler;
 
 /**
  *
@@ -105,28 +102,29 @@ public class LoginControlador implements ActionListener {
             while (rs.next()) {
                 if (rs.getString("USE_USU").equals(user) && rs.getString("PAS_USU").equals(pass)) {
                     Usuario_Model usuario = new Usuario_Model(
-                            // o el ID si lo tienes
+                            rs.getString("ID_USU"), // Asegúrate de incluir el ID
                             rs.getString("USE_USU"),
                             rs.getString("PAS_USU"),
                             rs.getString("NOM_USU"),
                             rs.getString("APE_USU")
                     );
                     SesionUsuario.iniciarSesion(usuario);
-                    
-                     JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
-                vista.dispose();  // Cierra el login
-                
-                // Abre directamente la Agenda
-                Agenda agenda = new Agenda();
-                agenda.setVisible(true);
-                
-                return true;
+
+                    JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
+                    vista.dispose();
+
+                    // Abre la Agenda con el usuario logueado
+                    Agenda agenda = new Agenda();
+                    CalendarioControlador controlador = new CalendarioControlador(agenda, usuario.getId()); // Pasa el ID real
+                    agenda.setVisible(true);
+
+                    return true;
+                }
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } catch (SQLException ex) {
-        Logger.getLogger(LoginControlador.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    JOptionPane.showMessageDialog(vista, "Usuario o Contraseña Incorrectos");
-    return false;
+        JOptionPane.showMessageDialog(vista, "Usuario o Contraseña Incorrectos");
+        return false;
     }
 }
