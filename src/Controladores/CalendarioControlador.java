@@ -1,80 +1,69 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controladores;
 
-/**
- *
- * @author Anthony
- */
 import BD.ConexionBD;
 import Modelos.CalendarioModelo;
 import Vistas.Agenda;
 import java.sql.Connection;
-import java.sql.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import javax.swing.JOptionPane;
-import com.toedter.calendar.JCalendar;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class CalendarioControlador {    
     private Agenda vista;
     private CalendarioModelo modelo;
     private Connection conexion;
-    private String usuarioActual = "user1";
+    private String usuarioActual;
 
-    public CalendarioControlador(Agenda vista) {
+    public CalendarioControlador(Agenda vista, String usuario) {
         this.vista = vista;
+        this.usuarioActual = usuario;
         this.conexion = new ConexionBD().conectar();
+        
         if (this.conexion != null) {
             this.modelo = new CalendarioModelo(conexion);
-            configurarController();
+            configurarListeners();
             cargarFechasGuardadas();
+        } else {
+            JOptionPane.showMessageDialog(vista, 
+                "Error al conectar con la base de datos", 
+                "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    private void configurarController() {
-        vista.setCalendarListener(fecha -> {
-            if (fecha.isBefore(LocalDate.now())) {
+    private void configurarListeners() {
+    vista.setAgregarEventListener(() -> {
+        LocalDate fecha = vista.getFechaSeleccionada();
+        String titulo = vista.getTituloEvento();
+        String descripcion = vista.getDescripcionEvento();
+        Time hora = vista.getHoraEvento();
+        
+        if (fecha == null || titulo.isEmpty()) {
+            JOptionPane.showMessageDialog(vista, 
+                "Debe seleccionar una fecha y proporcionar un título", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try {
+            if (modelo.guardarEvento(usuarioActual, titulo, descripcion, fecha, hora)) {
                 JOptionPane.showMessageDialog(vista, 
-                    "No se pueden agendar fechas anteriores al día actual", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            if (!fechaYaExiste(fecha)) {
-                guardarFechaEnBD(fecha);
-            }
-        });
-    }
-    
-    private boolean fechaYaExiste(LocalDate fecha) {
-        try {
-            return modelo.existeFecha(usuarioActual, fecha);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(vista, 
-                "Error al verificar fecha: " + ex.getMessage(), 
-                "Error", JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-    }
-    
-    private void guardarFechaEnBD(LocalDate fecha) {
-        try {
-            if (modelo.guardarFecha(usuarioActual, fecha)) {
+                    "Evento guardado correctamente", 
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 cargarFechasGuardadas();
+                // Nota: Para recordatorios necesitarías obtener el ID generado
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(vista, 
-                "Error al guardar fecha: " + ex.getMessage(), 
+                "Error al guardar evento: " + ex.getMessage(), 
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    });
+}
+    
+
     
     private void cargarFechasGuardadas() {
         try {
@@ -94,6 +83,4 @@ public class CalendarioControlador {
             System.err.println("Error al cerrar conexión: " + ex.getMessage());
         }
     }
-    
-
 }
