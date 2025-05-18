@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 import com.toedter.calendar.JCalendar;
 import java.util.List;
 
-public class CalendarioControlador {
+public class CalendarioControlador {    
     private Agenda vista;
     private CalendarioModelo modelo;
     private Connection conexion;
