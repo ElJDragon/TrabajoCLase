@@ -8,12 +8,12 @@ package Vistas;
  *
  * @author jonat
  */
-public class Login extends javax.swing.JFrame {
+public class Login_VIEW extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Login_VIEW() {
         initComponents();
     }
 
@@ -39,6 +39,11 @@ public class Login extends javax.swing.JFrame {
         jPswContrasenia.setText("jPasswordField1");
 
         jBtnIngresar.setText("Ingresar");
+        jBtnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnIngresarActionPerformed(evt);
+            }
+        });
 
         jbtnSalir.setText("Cerrar");
 
@@ -82,9 +87,21 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIngresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnIngresarActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    public String getUsername() {
+    return jTxtUsuario.getText().trim();
+}
+
+public String getPassword() {
+    return new String(jPswContrasenia.getPassword()).trim();
+}
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -99,29 +116,30 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login_VIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login_VIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login_VIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login_VIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Login_VIEW().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnIngresar;
+    public javax.swing.JButton jBtnIngresar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPasswordField jPswContrasenia;
-    private javax.swing.JTextField jTxtUsuario;
-    private javax.swing.JButton jbtnSalir;
+    public javax.swing.JPasswordField jPswContrasenia;
+    public javax.swing.JTextField jTxtUsuario;
+    public javax.swing.JButton jbtnSalir;
     // End of variables declaration//GEN-END:variables
 }

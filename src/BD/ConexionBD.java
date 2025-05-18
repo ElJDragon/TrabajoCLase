@@ -16,13 +16,13 @@ public class ConexionBD {
     Connection cc=null;
     public Connection conectar(){
         try {
-            Class.forName("mysql.jdbc.cj.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             cc = DriverManager.getConnection("jdbc:mysql://localhost/cv_ape","root","");
-            
+            System.out.println("COnectado");
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, ex);  
+            JOptionPane.showMessageDialog(null, "ERROR"+ex.getMessage());  
         } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"error"+ex.getMessage());
         }
         return cc;
     }
