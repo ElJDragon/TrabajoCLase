@@ -1,27 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BD;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author User
- */
 public class ConexionBD {
-    Connection cc=null;
-    public Connection conectar(){
+    Connection cc = null;
+
+    public Connection conectar() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            cc = DriverManager.getConnection("jdbc:mysql://localhost/cv_ape","root","");
-            System.out.println("Conectado");
+            // Cargar el driver de PostgreSQL
+            Class.forName("org.postgresql.Driver");
+
+            // Cambiar la cadena de conexión
+            String url = "jdbc:postgresql://ballast.proxy.rlwy.net:37561/railway";
+            String user = "postgres";
+            String password = "sjpWvDMCOsqkGRdjtABZABPCLYKzpNWW";
+
+            cc = DriverManager.getConnection(url, user, password);
+            System.out.println("Conectado a PostgreSQL con éxito.");
+
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR"+ex.getMessage());  
+            JOptionPane.showMessageDialog(null, "Error al cargar el driver: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"error"+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de conexión: " + ex.getMessage());
         }
         return cc;
+        //postgresql://postgres:@  
     }
 }
