@@ -18,9 +18,8 @@ import java.awt.event.FocusListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-import javax.swing.text.View;
-import org.w3c.dom.UserDataHandler;
 
 /**
  *
@@ -42,6 +41,7 @@ public class LoginControlador implements ActionListener {
     }
 
     private void inicializarVista() {
+        vista.setLocationRelativeTo(null);
         vista.jBtnIngresar.setActionCommand("INGRESAR");
         vista.jbtnSalir.setActionCommand("SALIR");
 
@@ -53,7 +53,18 @@ public class LoginControlador implements ActionListener {
         vista.jTxtUsuario.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
+//                bordesTextos();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
                 bordesTextos();
+            }
+        });
+        vista.jPswContrasenia.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+//                bordesTextos();
             }
 
             @Override
@@ -64,11 +75,16 @@ public class LoginControlador implements ActionListener {
     }
 
     private void bordesTextos() {
-        if (vista.jTxtUsuario.getText().trim().isEmpty()) {
+        if (!vista.getUsername().isEmpty() && !vista.getPassword().isEmpty()) {
+            vista.jTxtUsuario.setBorder(new LineBorder(Color.BLACK));
+            vista.jPswContrasenia.setBorder(new LineBorder(Color.black));
+        }
+        if (vista.getUsername().isEmpty()) {
             vista.jTxtUsuario.setBorder(new LineBorder(Color.RED, 2));
 
-        } else {
-            vista.jTxtUsuario.setBorder(new LineBorder(Color.white));
+        }
+        if (vista.getPassword().isEmpty()) {
+            vista.jPswContrasenia.setBorder(new LineBorder(Color.red, 2));
         }
     }
 
@@ -76,7 +92,23 @@ public class LoginControlador implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "INGRESAR":
-                buscarUsuario();
+                Usuario_Model usuario = buscarUsuarioPorCredenciales(
+                        vista.getUsername(), vista.getPassword()
+                );
+                if (usuario != null) {
+                    SesionUsuario.iniciarSesion(usuario);
+                    JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
+                    abrirMenuPrincipal();
+                    vista.dispose(); // Cerrar la vista de login
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(vista, "Usuario o contraseña incorrectos.");
+                    vista.jTxtUsuario.setBorder(new LineBorder(Color.RED, 2));
+                    vista.jPswContrasenia.setBorder(new LineBorder(Color.red, 2));
+                    Limpiartextos();
+                    bordesTextos();
+
+                }
                 break;
             case "SALIR":
                 vista.dispose();
@@ -92,37 +124,64 @@ public class LoginControlador implements ActionListener {
 
     }
 
-    private boolean buscarUsuario() {
-        try {
-            String user = vista.getUsername();
-            String pass = vista.getPassword();
-            String sql = "SELECT * FROM usuarios WHERE USE_USU = ? AND PAS_USU = ?";
-            PreparedStatement ps = cc.prepareStatement(sql);
-            ps.setString(1, user);
-            ps.setString(2, pass);
+//    private boolean buscarUsuario() {
+//        try {
+//            String user = vista.getUsername();
+//            String pass = vista.getPassword();
+//            String sql = "SELECT * FROM usuarios WHERE USE_USU = ? AND PAS_USU = ?";
+//            PreparedStatement ps = cc.prepareStatement(sql);
+//            ps.setString(1, user);
+//            ps.setString(2, pass);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                if (rs.getString("USE_USU").equals(user) && rs.getString("PAS_USU").equals(pass)) {
+//                    Usuario_Model usuario = new Usuario_Model(
+//                            // o el ID si lo tienes
+//                            rs.getString("USE_USU"),
+//                            rs.getString("PAS_USU"),
+//                            rs.getString("NOM_USU"),
+//                            rs.getString("APE_USU")
+//                    );
+//                    SesionUsuario.iniciarSesion(usuario);
+//                    
+//                    JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
+//                    MenuPrincipal menu = new MenuPrincipal();
+//                    menu.setVisible(true);
+//                    return true;
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(LoginControlador.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        JOptionPane.showMessageDialog(vista, "Usuario o Contraseña Incorrectos");
+//        return false;
+//    }
+    private Usuario_Model buscarUsuarioPorCredenciales(String username, String password) {
+        String sql = "SELECT * FROM usuarios WHERE USE_USU = ? AND PAS_USU = ?";
+        try (PreparedStatement ps = cc.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs.getString("USE_USU").equals(user) && rs.getString("PAS_USU").equals(pass)) {
-                    Usuario_Model usuario = new Usuario_Model(
-                            // o el ID si lo tienes
-                            rs.getString("USE_USU"),
-                            rs.getString("PAS_USU"),
-                            rs.getString("NOM_USU"),
-                            rs.getString("APE_USU")
-                    );
-                    SesionUsuario.iniciarSesion(usuario);
-                    
-                    JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
-                    MenuPrincipal menu = new MenuPrincipal();
-                    menu.setVisible(true);
-                    return true;
-                }
+            if (rs.next()) {
+                return new Usuario_Model(
+                        rs.getString("USE_USU"),
+                        rs.getString("PAS_USU"),
+                        rs.getString("NOM_USU"),
+                        rs.getString("APE_USU")
+                );
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(LoginControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(vista, "Usuario o Contraseña Incorrectos");
-        return false;
+
+        return null;
+    }
+
+    private void abrirMenuPrincipal() {
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.setVisible(true);
     }
 
 }

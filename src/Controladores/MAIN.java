@@ -13,8 +13,8 @@ import Vistas.Login_VIEW;
 public class MAIN {
    public static void main(String[] args) {
        //Prueba Login
-        Login_VIEW login = new Login_VIEW();
-        LoginControlador con = new LoginControlador(login);
-        login.setVisible(true);
+        Login_VIEW view = new Login_VIEW();
+        LoginControlador con = new LoginControlador(view);
+        view.setVisible(true);
     }
 }

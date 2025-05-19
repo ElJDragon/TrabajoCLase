@@ -4,17 +4,40 @@
  */
 package Vistas;
 
+import java.awt.Color;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+
 /**
  *
  * @author jonat
  */
 public class Login_VIEW extends javax.swing.JFrame {
 
+    private javax.swing.JLabel fondoGif;
+private javax.swing.JLayeredPane layeredPane;
     /**
      * Creates new form Login
      */
     public Login_VIEW() {
         initComponents();
+        configurarFondoAnimado();     // 🆕 método para fondo
+    personalizarEstilo();         // estilos de los campos
+    setLocationRelativeTo(null);
+    setLayout(null); // necesario para que setBounds funcione
+
+        // Fondo animado con GIF
+        fondoGif = new javax.swing.JLabel();
+        fondoGif.setBounds(0, 0, getWidth(), getHeight());
+        fondoGif.setIcon(new ImageIcon(getClass().getResource("/IMG/giphy.gif")));
+
+// Asegurarte de usar un layout absoluto o sobreposición
+        getLayeredPane().add(fondoGif, new Integer(Integer.MIN_VALUE));
+
+        personalizarEstilo();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -26,52 +49,82 @@ public class Login_VIEW extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jlblFoto = new javax.swing.JLabel();
         jTxtUsuario = new javax.swing.JTextField();
         jPswContrasenia = new javax.swing.JPasswordField();
         jBtnIngresar = new javax.swing.JButton();
         jbtnSalir = new javax.swing.JButton();
+        jLblIcon = new javax.swing.JLabel();
+        jLblFondo = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
+        lblContrasenia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Foto");
-
-        jPswContrasenia.setText("jPasswordField1");
+        jlblFoto.setText("Foto");
 
         jBtnIngresar.setText("Ingresar");
 
         jbtnSalir.setText("Cerrar");
 
+        jLblIcon.setText("  ");
+
+        jLblFondo.setText("jLabel1");
+
+        lblUsuario.setText("jLabel1");
+
+        lblContrasenia.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(256, 256, 256)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(222, 222, 222)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTxtUsuario)
-                            .addComponent(jPswContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                            .addComponent(jBtnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(262, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jbtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUsuario)
+                            .addComponent(lblContrasenia))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTxtUsuario)
+                            .addComponent(jPswContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                            .addComponent(jBtnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(244, 244, 244)
+                        .addComponent(jlblFoto)))
+                .addContainerGap(262, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLblFondo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(jLabel1)
-                .addGap(45, 45, 45)
-                .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jLblFondo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLblIcon)
+                .addGap(35, 35, 35)
+                .addComponent(jlblFoto)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsuario))
                 .addGap(33, 33, 33)
-                .addComponent(jPswContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPswContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblContrasenia))
                 .addGap(49, 49, 49)
                 .addComponent(jBtnIngresar)
                 .addGap(52, 52, 52)
@@ -86,13 +139,89 @@ public class Login_VIEW extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public String getUsername() {
-    return jTxtUsuario.getText().trim();
-}
+        return jTxtUsuario.getText().trim();
+    }
 
-public String getPassword() {
-    return new String(jPswContrasenia.getPassword()).trim();
-}
+    public String getPassword() {
+        return new String(jPswContrasenia.getPassword()).trim();
+    }
 
+    private void personalizarEstilo() {
+        // Fuente moderna
+        jTxtUsuario.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
+        jPswContrasenia.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
+
+        // Estilo botón "Ingresar"
+        jBtnIngresar.setBackground(new java.awt.Color(0, 123, 255)); // azul moderno
+        jBtnIngresar.setForeground(java.awt.Color.WHITE);
+        jBtnIngresar.setFocusPainted(false);
+        jBtnIngresar.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15));
+
+        // Estilo botón "Cerrar"
+        jbtnSalir.setBackground(new java.awt.Color(220, 53, 69)); // rojo suave
+        jbtnSalir.setForeground(java.awt.Color.WHITE);
+        jbtnSalir.setFocusPainted(false);
+        jbtnSalir.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15));
+
+        // Fondo general
+        getContentPane().setBackground(java.awt.Color.WHITE);
+
+        // (Opcional) Estilo label
+        jlblFoto.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 16));
+        jlblFoto.setText("\n" + "Iniciar Sesión");
+        jlblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblFoto.setForeground(java.awt.Color.WHITE); // cambia a blanco
+
+        ImageIcon icon = new ImageIcon(getClass().getResource("/IMG/user_logo.png"));
+        Image img = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        this.jLblIcon.setIcon(new ImageIcon(img));
+        // Crear labels
+        lblUsuario = new JLabel("Usuario:");
+        lblUsuario.setForeground(java.awt.Color.WHITE);
+        lblUsuario.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        lblUsuario.setBounds(180, 180, 60, 25);
+
+        lblContrasenia = new JLabel("Contraseña:");
+        lblContrasenia.setForeground(java.awt.Color.WHITE);
+        lblContrasenia.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        lblContrasenia.setBounds(180, 220, 70, 25);
+
+// Agregar al layeredPane
+        layeredPane.add(lblUsuario, Integer.valueOf(1));
+        layeredPane.add(lblContrasenia, Integer.valueOf(1));
+    }
+private void configurarFondoAnimado() {
+    // Usa un JLayeredPane para superponer el fondo
+    layeredPane = new JLayeredPane();
+    layeredPane.setBounds(0, -0, 600, 400); // ajusta al tamaño real
+
+    // Crea el JLabel con el GIF
+    fondoGif = new JLabel(new ImageIcon(getClass().getResource("/IMG/giphy.gif")));
+    fondoGif.setBounds(0, 0, 600, 500); // ocupa toda la ventana
+
+    // Agrega primero el fondo (capa más baja)
+    layeredPane.add(fondoGif, Integer.valueOf(0));
+
+    // Agrega todos los componentes de tu formulario en la capa superior
+    jTxtUsuario.setBounds(250, 180, 100, 25);
+    jPswContrasenia.setBounds(250, 220, 100, 25);
+    jBtnIngresar.setBounds(250, 260, 100, 30);
+    jbtnSalir.setBounds(250, 310, 100, 30);
+    jlblFoto.setBounds(240, 140, 120, 25);
+    jLblIcon.setBounds(250, 40, 100, 100);
+
+    // Agrega a la capa superior
+    layeredPane.add(jTxtUsuario, Integer.valueOf(1));
+    layeredPane.add(jPswContrasenia, Integer.valueOf(1));
+    layeredPane.add(jBtnIngresar, Integer.valueOf(1));
+    layeredPane.add(jbtnSalir, Integer.valueOf(1));
+    layeredPane.add(jlblFoto, Integer.valueOf(1));
+    layeredPane.add(jLblIcon, Integer.valueOf(1));
+
+    // Añade el layeredPane al JFrame
+    setContentPane(layeredPane);
+    setSize(600, 500); // tamaño total
+}
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -128,9 +257,13 @@ public String getPassword() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jBtnIngresar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLblFondo;
+    private javax.swing.JLabel jLblIcon;
     public javax.swing.JPasswordField jPswContrasenia;
     public javax.swing.JTextField jTxtUsuario;
     public javax.swing.JButton jbtnSalir;
+    private javax.swing.JLabel jlblFoto;
+    private javax.swing.JLabel lblContrasenia;
+    private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }
