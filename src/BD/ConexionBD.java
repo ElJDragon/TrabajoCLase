@@ -4,8 +4,6 @@
  */
 package BD;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,7 +16,7 @@ public class ConexionBD {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             cc = DriverManager.getConnection("jdbc:mysql://localhost/cv_ape","root","");
-            System.out.println("COnectado");
+            System.out.println("Conectado");
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "ERROR"+ex.getMessage());  
         } catch (SQLException ex) {

@@ -39,6 +39,11 @@ public class Login_VIEW extends javax.swing.JFrame {
         jPswContrasenia.setText("jPasswordField1");
 
         jBtnIngresar.setText("Ingresar");
+        jBtnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnIngresarActionPerformed(evt);
+            }
+        });
 
         jbtnSalir.setText("Cerrar");
 
@@ -81,6 +86,10 @@ public class Login_VIEW extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIngresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnIngresarActionPerformed
 
     /**
      * @param args the command line arguments

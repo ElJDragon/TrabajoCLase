@@ -4,11 +4,11 @@
  */
 package Controladores;
 
+import Vistas.AgendaPersonalizada;
 import BD.ConexionBD;
 import Modelos.SesionUsuario;
 import Modelos.Usuario_Model;
 import Vistas.Login_VIEW;
-import Vistas.MenuPrincipal;
 import java.awt.Color;
 import java.sql.*;
 import java.awt.event.ActionEvent;
@@ -19,8 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
-import javax.swing.text.View;
-import org.w3c.dom.UserDataHandler;
 
 /**
  *
@@ -101,22 +99,25 @@ public class LoginControlador implements ActionListener {
             ps.setString(1, user);
             ps.setString(2, pass);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs.getString("USE_USU").equals(user) && rs.getString("PAS_USU").equals(pass)) {
-                    Usuario_Model usuario = new Usuario_Model(
-                            // o el ID si lo tienes
-                            rs.getString("USE_USU"),
-                            rs.getString("PAS_USU"),
-                            rs.getString("NOM_USU"),
-                            rs.getString("APE_USU")
-                    );
-                    SesionUsuario.iniciarSesion(usuario);
-                    
-                    JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
-                    MenuPrincipal menu = new MenuPrincipal();
-                    menu.setVisible(true);
-                    return true;
-                }
+
+            if (rs.next()) {
+                Usuario_Model usuario = new Usuario_Model(
+                        rs.getString("ID_USU"), // ID
+                        rs.getString("USE_USU"), // Username
+                        rs.getString("PAS_USU"), // Password
+                        rs.getString("NOM_USU"), // Nombre
+                        rs.getString("APE_USU") // Apellido
+                );
+
+                // Guardar tanto ID como USE_USU en la sesión
+                SesionUsuario.iniciarSesion(usuario);
+
+                // Abrir la agenda
+                AgendaPersonalizada agenda = new AgendaPersonalizada();
+                agenda.setVisible(true);
+                vista.dispose();
+
+                return true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,5 +125,4 @@ public class LoginControlador implements ActionListener {
         JOptionPane.showMessageDialog(vista, "Usuario o Contraseña Incorrectos");
         return false;
     }
-
 }
