@@ -17,6 +17,7 @@ public class ConexionBD {
 
             cc = DriverManager.getConnection(url, user, password);
             System.out.println("Conectado a PostgreSQL con éxito.");
+
         } catch (ClassNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Error al cargar el driver: " + ex.getMessage());
         } catch (SQLException ex) {

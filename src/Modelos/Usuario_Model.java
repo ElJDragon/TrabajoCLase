@@ -8,18 +8,26 @@ package Modelos;
  *
  * @author User
  */
-public class Usuario_Model {
-    String username,password,nombre,apellido;
 
-    public Usuario_Model( String username, String password, String nombre, String apellido) {
-        
+public class Usuario_Model {
+    private String id;
+    private String username;
+    private String password;
+    private String nombre;
+    private String apellido;
+
+    // Constructor
+    public Usuario_Model(String id, String username, String password, String nombre, String apellido) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.nombre = nombre;
         this.apellido = apellido;
     }
 
-
+  public String getId() {
+        return id;
+    }
 
     public String getUsername() {
         return username;

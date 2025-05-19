@@ -4,11 +4,11 @@
  */
 package Controladores;
 
+import Vistas.AgendaPersonalizada;
 import BD.ConexionBD;
 import Modelos.SesionUsuario;
 import Modelos.Usuario_Model;
 import Vistas.Login_VIEW;
-import Vistas.MenuPrincipal;
 import java.awt.Color;
 import java.sql.*;
 import java.awt.event.ActionEvent;
@@ -177,6 +177,7 @@ public class LoginControlador implements ActionListener {
                         rs.getString("NOM_USU"),
                         rs.getString("APE_USU")
                 );
+
             }
 
         } catch (SQLException ex) {
@@ -196,5 +197,4 @@ public class LoginControlador implements ActionListener {
         new RegistroControlador(registro);
         registro.setVisible(true);
     }
-
 }

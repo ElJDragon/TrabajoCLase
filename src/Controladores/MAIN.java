@@ -16,5 +16,6 @@ public class MAIN {
         Login_VIEW view = new Login_VIEW();
         LoginControlador con = new LoginControlador(view);
         view.setVisible(true);
+
     }
 }
