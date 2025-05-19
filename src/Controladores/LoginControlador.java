@@ -4,10 +4,10 @@
  */
 package Controladores;
 
+import Vistas.AgendaPersonalizada;
 import BD.ConexionBD;
 import Modelos.SesionUsuario;
 import Modelos.Usuario_Model;
-import Vistas.Agenda;
 import Vistas.Login_VIEW;
 import java.awt.Color;
 import java.sql.*;
@@ -99,27 +99,25 @@ public class LoginControlador implements ActionListener {
             ps.setString(1, user);
             ps.setString(2, pass);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs.getString("USE_USU").equals(user) && rs.getString("PAS_USU").equals(pass)) {
-                    Usuario_Model usuario = new Usuario_Model(
-                            rs.getString("ID_USU"), // Asegúrate de incluir el ID
-                            rs.getString("USE_USU"),
-                            rs.getString("PAS_USU"),
-                            rs.getString("NOM_USU"),
-                            rs.getString("APE_USU")
-                    );
-                    SesionUsuario.iniciarSesion(usuario);
 
-                    JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
-                    vista.dispose();
+            if (rs.next()) {
+                Usuario_Model usuario = new Usuario_Model(
+                        rs.getString("ID_USU"), // ID
+                        rs.getString("USE_USU"), // Username
+                        rs.getString("PAS_USU"), // Password
+                        rs.getString("NOM_USU"), // Nombre
+                        rs.getString("APE_USU") // Apellido
+                );
 
-                    // Abre la Agenda con el usuario logueado
-                    Agenda agenda = new Agenda();
-                    CalendarioControlador controlador = new CalendarioControlador(agenda, usuario.getId()); // Pasa el ID real
-                    agenda.setVisible(true);
+                // Guardar tanto ID como USE_USU en la sesión
+                SesionUsuario.iniciarSesion(usuario);
 
-                    return true;
-                }
+                // Abrir la agenda
+                AgendaPersonalizada agenda = new AgendaPersonalizada();
+                agenda.setVisible(true);
+                vista.dispose();
+
+                return true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginControlador.class.getName()).log(Level.SEVERE, null, ex);
