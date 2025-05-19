@@ -16,26 +16,12 @@ import javax.swing.JLayeredPane;
  */
 public class Login_VIEW extends javax.swing.JFrame {
 
-    private javax.swing.JLabel fondoGif;
-private javax.swing.JLayeredPane layeredPane;
-    /**
-     * Creates new form Login
-     */
+    private JLabel fondoGif;
+    private JLayeredPane layeredPane;
+
     public Login_VIEW() {
         initComponents();
-        configurarFondoAnimado();     // 🆕 método para fondo
-    personalizarEstilo();         // estilos de los campos
-    setLocationRelativeTo(null);
-    setLayout(null); // necesario para que setBounds funcione
-
-        // Fondo animado con GIF
-        fondoGif = new javax.swing.JLabel();
-        fondoGif.setBounds(0, 0, getWidth(), getHeight());
-        fondoGif.setIcon(new ImageIcon(getClass().getResource("/IMG/giphy.gif")));
-
-// Asegurarte de usar un layout absoluto o sobreposición
-        getLayeredPane().add(fondoGif, new Integer(Integer.MIN_VALUE));
-
+        configurarFondoAnimado();
         personalizarEstilo();
         setLocationRelativeTo(null);
     }
@@ -58,10 +44,13 @@ private javax.swing.JLayeredPane layeredPane;
         jLblFondo = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         lblContrasenia = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLblCrear = new javax.swing.JLabel();
+        jBtnCrear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jlblFoto.setText("Foto");
+        jlblFoto.setText("Foto User");
 
         jBtnIngresar.setText("Ingresar");
 
@@ -69,11 +58,19 @@ private javax.swing.JLayeredPane layeredPane;
 
         jLblIcon.setText("  ");
 
-        jLblFondo.setText("jLabel1");
+        jLblFondo.setText("Fondo");
 
-        lblUsuario.setText("jLabel1");
+        lblUsuario.setText("User");
 
-        lblContrasenia.setText("jLabel2");
+        lblContrasenia.setText("Password");
+
+        jLabel1.setFont(new java.awt.Font("Stencil", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 255));
+        jLabel1.setText("Bienvenido a la Agenda");
+
+        jLblCrear.setText("¿No tiene suna cuenta? Cree una");
+
+        jBtnCrear.setText("Crear");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,39 +78,45 @@ private javax.swing.JLayeredPane layeredPane;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLblCrear)
+                .addGap(71, 71, 71)
                 .addComponent(jbtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLblFondo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(132, 132, 132)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUsuario)
-                            .addComponent(lblContrasenia))
-                        .addGap(53, 53, 53)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTxtUsuario)
-                            .addComponent(jPswContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                            .addComponent(jBtnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblUsuario)
+                                    .addComponent(lblContrasenia))
+                                .addGap(53, 53, 53)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTxtUsuario)
+                                    .addComponent(jPswContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                                    .addComponent(jBtnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBtnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(244, 244, 244)
                         .addComponent(jlblFoto)))
-                .addContainerGap(262, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLblFondo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLblFondo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLblFondo)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addComponent(jLblIcon)
                 .addGap(35, 35, 35)
                 .addComponent(jlblFoto)
@@ -127,9 +130,16 @@ private javax.swing.JLayeredPane layeredPane;
                     .addComponent(lblContrasenia))
                 .addGap(49, 49, 49)
                 .addComponent(jBtnIngresar)
-                .addGap(52, 52, 52)
-                .addComponent(jbtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jbtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLblCrear)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtnCrear)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,6 +148,46 @@ private javax.swing.JLayeredPane layeredPane;
     /**
      * @param args the command line arguments
      */
+    private void personalizarEstilo() {
+        jLabel1.setFont(new java.awt.Font("Stencil", 1, 24));
+        jLabel1.setForeground(new Color(102, 102, 255));
+        jLabel1.setText("BIENVENIDO A LA AGENDA");
+
+        jlblFoto.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 16));
+        jlblFoto.setText("Foto User");
+        jlblFoto.setForeground(Color.WHITE);
+
+        lblUsuario.setText("User");
+        lblUsuario.setForeground(Color.WHITE);
+        lblUsuario.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+
+        lblContrasenia.setText("Password");
+        lblContrasenia.setForeground(Color.WHITE);
+        lblContrasenia.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+
+        jLblCrear.setText("¿No tiene una cuenta? Cree una");
+        jLblCrear.setForeground(Color.WHITE);
+
+        jBtnIngresar.setText("Ingresar");
+        jBtnIngresar.setBackground(new Color(0, 123, 255));
+        jBtnIngresar.setForeground(Color.WHITE);
+        jBtnIngresar.setFocusPainted(false);
+
+        jBtnCrear.setText("Crear");
+        jBtnCrear.setBackground(new Color(40, 167, 69));
+        jBtnCrear.setForeground(Color.WHITE);
+        jBtnCrear.setFocusPainted(false);
+
+        jbtnSalir.setText("Cerrar");
+        jbtnSalir.setBackground(new Color(220, 53, 69));
+        jbtnSalir.setForeground(Color.WHITE);
+        jbtnSalir.setFocusPainted(false);
+
+        ImageIcon icon = new ImageIcon(getClass().getResource("/IMG/user_logo.png"));
+        Image img = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        jLblIcon.setIcon(new ImageIcon(img));
+    }
+
     public String getUsername() {
         return jTxtUsuario.getText().trim();
     }
@@ -146,82 +196,42 @@ private javax.swing.JLayeredPane layeredPane;
         return new String(jPswContrasenia.getPassword()).trim();
     }
 
-    private void personalizarEstilo() {
-        // Fuente moderna
-        jTxtUsuario.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
-        jPswContrasenia.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
+    private void configurarFondoAnimado() {
+        layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, 600, 500);
 
-        // Estilo botón "Ingresar"
-        jBtnIngresar.setBackground(new java.awt.Color(0, 123, 255)); // azul moderno
-        jBtnIngresar.setForeground(java.awt.Color.WHITE);
-        jBtnIngresar.setFocusPainted(false);
-        jBtnIngresar.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        fondoGif = new JLabel(new ImageIcon(getClass().getResource("/IMG/giphy.gif")));
+        fondoGif.setBounds(0, 0, 600, 500);
+        layeredPane.add(fondoGif, Integer.valueOf(0));
 
-        // Estilo botón "Cerrar"
-        jbtnSalir.setBackground(new java.awt.Color(220, 53, 69)); // rojo suave
-        jbtnSalir.setForeground(java.awt.Color.WHITE);
-        jbtnSalir.setFocusPainted(false);
-        jbtnSalir.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15));
+        jLabel1.setBounds(140, 10, 400, 40);
+        jLblIcon.setBounds(250, 50, 100, 100);
+        jlblFoto.setBounds(260, 140, 100, 20);
+        lblUsuario.setBounds(170, 180, 70, 25);
+        jTxtUsuario.setBounds(250, 180, 120, 25);
+        lblContrasenia.setBounds(170, 220, 80, 25);
+        jPswContrasenia.setBounds(250, 220, 120, 25);
+        jBtnIngresar.setBounds(250, 260, 120, 30);
+        jLblCrear.setBounds(180, 300, 250, 20);
+        jBtnCrear.setBounds(250, 330, 120, 30);
+        jbtnSalir.setBounds(250, 370, 120, 30);
 
-        // Fondo general
-        getContentPane().setBackground(java.awt.Color.WHITE);
-
-        // (Opcional) Estilo label
-        jlblFoto.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 16));
-        jlblFoto.setText("\n" + "Iniciar Sesión");
-        jlblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblFoto.setForeground(java.awt.Color.WHITE); // cambia a blanco
-
-        ImageIcon icon = new ImageIcon(getClass().getResource("/IMG/user_logo.png"));
-        Image img = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-        this.jLblIcon.setIcon(new ImageIcon(img));
-        // Crear labels
-        lblUsuario = new JLabel("Usuario:");
-        lblUsuario.setForeground(java.awt.Color.WHITE);
-        lblUsuario.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-        lblUsuario.setBounds(180, 180, 60, 25);
-
-        lblContrasenia = new JLabel("Contraseña:");
-        lblContrasenia.setForeground(java.awt.Color.WHITE);
-        lblContrasenia.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-        lblContrasenia.setBounds(180, 220, 70, 25);
-
-// Agregar al layeredPane
+        layeredPane.add(jLabel1, Integer.valueOf(1));
+        layeredPane.add(jLblIcon, Integer.valueOf(1));
+        layeredPane.add(jlblFoto, Integer.valueOf(1));
         layeredPane.add(lblUsuario, Integer.valueOf(1));
+        layeredPane.add(jTxtUsuario, Integer.valueOf(1));
         layeredPane.add(lblContrasenia, Integer.valueOf(1));
+        layeredPane.add(jPswContrasenia, Integer.valueOf(1));
+        layeredPane.add(jBtnIngresar, Integer.valueOf(1));
+        layeredPane.add(jLblCrear, Integer.valueOf(1));
+        layeredPane.add(jBtnCrear, Integer.valueOf(1));
+        layeredPane.add(jbtnSalir, Integer.valueOf(1));
+
+        setContentPane(layeredPane);
+        setSize(600, 500);
     }
-private void configurarFondoAnimado() {
-    // Usa un JLayeredPane para superponer el fondo
-    layeredPane = new JLayeredPane();
-    layeredPane.setBounds(0, -0, 600, 400); // ajusta al tamaño real
 
-    // Crea el JLabel con el GIF
-    fondoGif = new JLabel(new ImageIcon(getClass().getResource("/IMG/giphy.gif")));
-    fondoGif.setBounds(0, 0, 600, 500); // ocupa toda la ventana
-
-    // Agrega primero el fondo (capa más baja)
-    layeredPane.add(fondoGif, Integer.valueOf(0));
-
-    // Agrega todos los componentes de tu formulario en la capa superior
-    jTxtUsuario.setBounds(250, 180, 100, 25);
-    jPswContrasenia.setBounds(250, 220, 100, 25);
-    jBtnIngresar.setBounds(250, 260, 100, 30);
-    jbtnSalir.setBounds(250, 310, 100, 30);
-    jlblFoto.setBounds(240, 140, 120, 25);
-    jLblIcon.setBounds(250, 40, 100, 100);
-
-    // Agrega a la capa superior
-    layeredPane.add(jTxtUsuario, Integer.valueOf(1));
-    layeredPane.add(jPswContrasenia, Integer.valueOf(1));
-    layeredPane.add(jBtnIngresar, Integer.valueOf(1));
-    layeredPane.add(jbtnSalir, Integer.valueOf(1));
-    layeredPane.add(jlblFoto, Integer.valueOf(1));
-    layeredPane.add(jLblIcon, Integer.valueOf(1));
-
-    // Añade el layeredPane al JFrame
-    setContentPane(layeredPane);
-    setSize(600, 500); // tamaño total
-}
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -256,14 +266,17 @@ private void configurarFondoAnimado() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton jBtnCrear;
     public javax.swing.JButton jBtnIngresar;
-    private javax.swing.JLabel jLblFondo;
-    private javax.swing.JLabel jLblIcon;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLblCrear;
+    public javax.swing.JLabel jLblFondo;
+    public javax.swing.JLabel jLblIcon;
     public javax.swing.JPasswordField jPswContrasenia;
     public javax.swing.JTextField jTxtUsuario;
     public javax.swing.JButton jbtnSalir;
-    private javax.swing.JLabel jlblFoto;
-    private javax.swing.JLabel lblContrasenia;
-    private javax.swing.JLabel lblUsuario;
+    public javax.swing.JLabel jlblFoto;
+    public javax.swing.JLabel lblContrasenia;
+    public javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }

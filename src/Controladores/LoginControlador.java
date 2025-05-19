@@ -44,6 +44,7 @@ public class LoginControlador implements ActionListener {
         vista.setLocationRelativeTo(null);
         vista.jBtnIngresar.setActionCommand("INGRESAR");
         vista.jbtnSalir.setActionCommand("SALIR");
+        vista.jBtnCrear.setActionCommand("CREAR");
 
     }
 
@@ -72,6 +73,8 @@ public class LoginControlador implements ActionListener {
                 bordesTextos();
             }
         });
+        vista.jBtnCrear.addActionListener(this);
+
     }
 
     private void bordesTextos() {
@@ -113,6 +116,10 @@ public class LoginControlador implements ActionListener {
             case "SALIR":
                 vista.dispose();
                 break;
+            case "CREAR":
+                mostrarFormularioRegistro();
+                break;
+
             default:
                 throw new AssertionError();
         }
@@ -157,7 +164,7 @@ public class LoginControlador implements ActionListener {
 //        return false;
 //    }
     private Usuario_Model buscarUsuarioPorCredenciales(String username, String password) {
-        String sql = "SELECT * FROM usuarios WHERE USE_USU = ? AND PAS_USU = ?";
+        String sql = "SELECT * FROM USUARIOS WHERE USE_USU = ? AND PAS_USU = ?";
         try (PreparedStatement ps = cc.prepareStatement(sql)) {
             ps.setString(1, username);
             ps.setString(2, password);
@@ -182,6 +189,12 @@ public class LoginControlador implements ActionListener {
     private void abrirMenuPrincipal() {
         MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(true);
+    }
+
+    private void mostrarFormularioRegistro() {
+        Vistas.registro_View registro = new Vistas.registro_View();
+        new RegistroControlador(registro);
+        registro.setVisible(true);
     }
 
 }
