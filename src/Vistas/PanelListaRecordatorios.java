@@ -39,14 +39,14 @@ public class PanelListaRecordatorios extends javax.swing.JPanel {
      * Creates new form PanelListaRecordatorios
      */
     private RecordatorioControlador controlador;
-    private String usuario;
+    private int usuario;
     private Timer refreshTimer;
     private int tiempoAc=5000;
     public PanelListaRecordatorios() {
         initComponents();
     }
 
-    public PanelListaRecordatorios(RecordatorioControlador controlador, String usuario) {
+    public PanelListaRecordatorios(RecordatorioControlador controlador, int usuario) {
         this.controlador = controlador;
         this.usuario = usuario;
         initComponents();

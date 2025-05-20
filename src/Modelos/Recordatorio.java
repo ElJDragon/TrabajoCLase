@@ -11,11 +11,11 @@ public class Recordatorio {
     private String descripcionEvento;
     private int minutosAntes;
     private boolean activo;
-    private String usuario;
+    private int usuario;
     public Recordatorio(){
         
     }
-    public Recordatorio(String idEvento,  int minutosAntes, boolean activo, String usuario) {
+    public Recordatorio(String idEvento,  int minutosAntes, boolean activo, int usuario) {
         
         this.idEvento = idEvento;
        

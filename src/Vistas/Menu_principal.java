@@ -37,7 +37,9 @@ public class Menu_principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        SesionUsuario sesion  =  new SesionUsuario();
+        RecordatorioControlador controlador = new RecordatorioControlador(con,sesion.getUsuarioActual().getId() );
+        PanelRecordatorios = new PanelListaRecordatorios(controlador ,sesion.getUsuarioActual().getId());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,14 +53,14 @@ public class Menu_principal extends javax.swing.JFrame {
 
         jButton4.setText("jButton4");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanelRecordatoriosLayout = new javax.swing.GroupLayout(PanelRecordatorios);
+        PanelRecordatorios.setLayout(PanelRecordatoriosLayout);
+        PanelRecordatoriosLayout.setHorizontalGroup(
+            PanelRecordatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 331, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PanelRecordatoriosLayout.setVerticalGroup(
+            PanelRecordatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 243, Short.MAX_VALUE)
         );
 
@@ -78,9 +80,9 @@ public class Menu_principal extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(241, 241, 241)
                             .addComponent(jButton1))))
-                .addGap(104, 104, 104)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(PanelRecordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,9 +100,9 @@ public class Menu_principal extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(jButton4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(137, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PanelRecordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,18 +114,16 @@ public class Menu_principal extends javax.swing.JFrame {
     SesionUsuario sesion  =  new SesionUsuario();
     ConexionBD bd = new ConexionBD();
     Connection con = bd.conectar();
-    RecordatorioControlador controlador = new RecordatorioControlador(con,Integer.toString((sesion.getUsuarioActual().getId())) );
-    PanelListaRecordatorios panel = new PanelListaRecordatorios(controlador, Integer.toString((sesion.getUsuarioActual().getId())));
-    public Menu_principal(Connection cn, String usuario){
-        
-    }
+   
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelRecordatorios;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

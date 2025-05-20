@@ -102,7 +102,8 @@ public class LoginControlador implements ActionListener {
                 if (usuario != null) {
                     SesionUsuario.iniciarSesion(usuario);
                     JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
-                    Menu_principal menu = new Menu_principal(cc, Integer.toString(SesionUsuario.getUsuarioActual().getId()));
+                    Menu_principal menu = new Menu_principal();
+                    menu.setVisible(true);
                     vista.dispose(); // Cerrar la vista de login
                     break;
                 } else {

@@ -50,16 +50,14 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
     /**
      * Creates new form BuscarEventoVista1
      */
-    private String id_usu;
+    private int id_usu;
     private Connection conn;
     private RecordatorioControlador controlador;
     private ConexionBD bd;
 
-    {
-        conn = bd.conectar();
-    }
+   
 
-    public BuscarEventoVista1(String id_usu) {
+    public BuscarEventoVista1(int id_usu) {
         this.id_usu = id_usu;
         this.controlador = new RecordatorioControlador(conn, id_usu);
         initComponents();
@@ -342,7 +340,7 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
                     try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
                         int paramIndex = 1;
 
-                        ps.setInt(paramIndex++, Integer.getInteger(id_usu)); // <-- id_usu debe ser int
+                        ps.setInt(paramIndex++, id_usu); // <-- id_usu debe ser int
 
                         if (!titulo.isEmpty()) {
                             ps.setString(paramIndex++, "%" + titulo + "%");

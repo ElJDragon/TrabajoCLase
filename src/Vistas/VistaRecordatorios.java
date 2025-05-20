@@ -5,6 +5,7 @@
 package Vistas;
 import BD.ConexionBD;
 import Controladores.RecordatorioControlador;
+import Modelos.SesionUsuario;
 import java.sql.*;
 import javax.swing.JFrame;
 /**
@@ -16,7 +17,7 @@ public class VistaRecordatorios extends javax.swing.JFrame {
     /**
      * Creates new form VistaRecordatorios
      */
-    public VistaRecordatorios(String usuario, Connection conexion) {
+    public VistaRecordatorios(int usuario, Connection conexion) {
        
         
         RecordatorioControlador controlador = new RecordatorioControlador(conexion, usuario);
@@ -60,6 +61,9 @@ public class VistaRecordatorios extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    static SesionUsuario sesion  =  new SesionUsuario();
+    static ConexionBD bd = new ConexionBD();
+    static Connection con = bd.conectar();
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -90,7 +94,7 @@ public class VistaRecordatorios extends javax.swing.JFrame {
                 Connection cn;
                 ConexionBD bd=new ConexionBD();
                 cn=bd.conectar();
-                new VistaRecordatorios("U003", cn).setVisible(true);
+                VistaRecordatorios vista=new VistaRecordatorios(3,con);
             }
         });
     }
