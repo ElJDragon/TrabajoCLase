@@ -1,37 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BD;
-
-/**
- *
- * @author User
- */
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class ConexionBD {
+    Connection cc = null;
 
-    private static final String URL = "jdbc:mysql://localhost:3306/agenda";
-    private static final String USUARIO = "root";
-    private static final String CONTRASENA = "";
-    public static Connection obtenerConexion() {
-        Connection conexion = null;
-
+    public Connection conectar() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conexion = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
-            System.out.println("Conexión exitosa a la base de datos.");
-        } catch (ClassNotFoundException e) {
-            System.out.println("No se encontró el driver de MySQL.");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Error al conectar a la base de datos.");
-            e.printStackTrace();
-        }
+            // Cargar el driver de PostgreSQL
+            Class.forName("org.postgresql.Driver");
 
-        return conexion;
+            // Cambiar la cadena de conexión
+            String url = "jdbc:postgresql://ballast.proxy.rlwy.net:37561/railway";
+            String user = "postgres";
+            String password = "sjpWvDMCOsqkGRdjtABZABPCLYKzpNWW";
+
+            cc = DriverManager.getConnection(url, user, password);
+            System.out.println("Conectado a PostgreSQL con éxito.");
+
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el driver: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de conexión: " + ex.getMessage());
+        }
+        return cc;
+        //postgresql://postgres:@  
     }
 }
