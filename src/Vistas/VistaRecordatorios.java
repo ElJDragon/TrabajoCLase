@@ -19,18 +19,7 @@ public class VistaRecordatorios extends javax.swing.JFrame {
      */
     public VistaRecordatorios(int usuario, Connection conexion) {
        
-        
-        RecordatorioControlador controlador = new RecordatorioControlador(conexion, usuario);
-
-        // Crear el panel de recordatorios
-        PanelListaRecordatorios panel = new PanelListaRecordatorios(controlador, usuario);
-
-        // Para probar, lo agregamos a un JFrame
-        
-        this.getContentPane().add(panel);
-        this.setSize(500, 400);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+       
     }
 
     /**

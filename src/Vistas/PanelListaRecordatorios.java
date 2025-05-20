@@ -7,6 +7,7 @@ package Vistas;
 import BD.ConexionBD;
 import Controladores.RecordatorioControlador;
 import Modelos.Recordatorio;
+import Modelos.SesionUsuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -41,20 +42,18 @@ public class PanelListaRecordatorios extends javax.swing.JPanel {
     private RecordatorioControlador controlador;
     private int usuario;
     private Timer refreshTimer;
-    private int tiempoAc=5000;
-    public PanelListaRecordatorios() {
-        initComponents();
-    }
+    private int tiempoAc = 5000;
 
-    public PanelListaRecordatorios(RecordatorioControlador controlador, int usuario) {
-        this.controlador = controlador;
-        this.usuario = usuario;
+    public PanelListaRecordatorios() {
+        SesionUsuario sesion = new SesionUsuario();
+        ConexionBD bd = new ConexionBD();
+        Connection con = bd.conectar();
+        this.usuario = sesion.getUsuarioActual().getId();
+        this.controlador = new RecordatorioControlador(con, usuario);
         initComponents();
-        
         jPanelMain.setLayout(new BorderLayout());
         jPanelMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        
         recordatoriosContainer.setLayout(new BoxLayout(recordatoriosContainer, BoxLayout.Y_AXIS));
 
         JScrollPane scrollPane = new JScrollPane(recordatoriosContainer);
@@ -137,7 +136,7 @@ public class PanelListaRecordatorios extends javax.swing.JPanel {
         if (recordatorio.getHoraEvento() != null) {
             tiempoEvento += recordatorio.getHoraEvento().getTime() % (24 * 60 * 60 * 1000);
         }
-        long ahora = System.currentTimeMillis()+18000000;
+        long ahora = System.currentTimeMillis() + 18000000;
         long diferencia = tiempoEvento - ahora;
         long minutosFaltantes = TimeUnit.MILLISECONDS.toMinutes(diferencia);
         long horasFaltantes = minutosFaltantes / 60;
@@ -209,8 +208,6 @@ public class PanelListaRecordatorios extends javax.swing.JPanel {
         panel.add(vistoCheck, BorderLayout.EAST);
 
         // Botón adicional (sin funcionalidad, para ser programado por el usuario)
-        
-
         return panel;
     }
 
@@ -222,7 +219,7 @@ public class PanelListaRecordatorios extends javax.swing.JPanel {
         }
 
         // Calcular diferencia en minutos
-        long ahora = System.currentTimeMillis()+18000000;
+        long ahora = System.currentTimeMillis() + 18000000;
         long diferencia = tiempoEvento - ahora;
         long minutosFaltantes = TimeUnit.MILLISECONDS.toMinutes(diferencia);
 
@@ -256,7 +253,6 @@ public class PanelListaRecordatorios extends javax.swing.JPanel {
         }
     }
 
- 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -331,7 +327,7 @@ public class PanelListaRecordatorios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       new BuscarEventoVista1(usuario).setVisible(true);
+        new BuscarEventoVista1(usuario).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

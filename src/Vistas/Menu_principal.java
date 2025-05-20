@@ -8,7 +8,9 @@ import BD.ConexionBD;
 import Controladores.RecordatorioControlador;
 import Controladores.RegistroControlador;
 import Modelos.SesionUsuario;
+import java.awt.Dimension;
 import java.sql.*;
+import javax.swing.JPanel;
 
 /**
  *
@@ -21,6 +23,11 @@ public class Menu_principal extends javax.swing.JFrame {
      */
     public Menu_principal() {
         initComponents();
+        JPanel recordatorios = new PanelListaRecordatorios();
+        Recordatorios.add(recordatorios);
+
+        recordatorios.setSize(new Dimension(300, 300));
+
     }
 
     /**
@@ -37,10 +44,7 @@ public class Menu_principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        SesionUsuario sesion  =  new SesionUsuario();
-        RecordatorioControlador controlador = new RecordatorioControlador(con,sesion.getUsuarioActual().getId() );
-        PanelRecordatorios = new PanelListaRecordatorios(controlador ,sesion.getUsuarioActual().getId());
+        Recordatorios = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,36 +58,15 @@ public class Menu_principal extends javax.swing.JFrame {
 
         jButton4.setText("jButton4");
 
-        javax.swing.GroupLayout PanelRecordatoriosLayout = new javax.swing.GroupLayout(PanelRecordatorios);
-        PanelRecordatorios.setLayout(PanelRecordatoriosLayout);
-        PanelRecordatoriosLayout.setHorizontalGroup(
-            PanelRecordatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout RecordatoriosLayout = new javax.swing.GroupLayout(Recordatorios);
+        Recordatorios.setLayout(RecordatoriosLayout);
+        RecordatoriosLayout.setHorizontalGroup(
+            RecordatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 312, Short.MAX_VALUE)
         );
-        PanelRecordatoriosLayout.setVerticalGroup(
-            PanelRecordatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(97, 97, 97)
-                    .addComponent(PanelRecordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(135, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(136, 136, 136)
-                    .addComponent(PanelRecordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(172, Short.MAX_VALUE)))
+        RecordatoriosLayout.setVerticalGroup(
+            RecordatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 338, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -102,9 +85,9 @@ public class Menu_principal extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(241, 241, 241)
                             .addComponent(jButton1))))
-                .addGap(70, 70, 70)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(Recordatorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,16 +98,16 @@ public class Menu_principal extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(33, 33, 33)
                         .addComponent(jButton1)
-                        .addGap(18, 18, 18)
+                        .addGap(19, 19, 19)
                         .addComponent(jButton2)
                         .addGap(23, 23, 23)
                         .addComponent(jButton3)
                         .addGap(35, 35, 35)
                         .addComponent(jButton4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addComponent(Recordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -133,20 +116,18 @@ public class Menu_principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    SesionUsuario sesion  =  new SesionUsuario();
+    SesionUsuario sesion = new SesionUsuario();
     ConexionBD bd = new ConexionBD();
-    Connection con = bd.conectar();
-   
-    
+    Connection conexion = bd.conectar();
+    int usuario = sesion.getUsuarioActual().getId();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelRecordatorios;
+    private javax.swing.JPanel Recordatorios;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
