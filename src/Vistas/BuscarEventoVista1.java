@@ -53,7 +53,7 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
     private String id_usu;
     private Connection conn;
     private RecordatorioControlador controlador;
-    private ConexionBD bd ;
+    private ConexionBD bd;
 
     {
         conn = bd.conectar();
@@ -305,26 +305,19 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
             return;
         }
 
-        // Obtener valores de los filtros
         final String titulo = txtTitulo.getText().trim();
-
-        // Usar variables finales para las fechas
         final boolean usarFechas = chkUsarFechas.isSelected();
         final Date fechaDesde = usarFechas ? (Date) spinnerDesde.getValue() : null;
         final Date fechaHasta = usarFechas ? (Date) spinnerHasta.getValue() : null;
 
-        // Validar que la fecha hasta no sea anterior a la fecha desde
-        if (usarFechas && fechaDesde != null && fechaHasta != null
-                && fechaHasta.before(fechaDesde)) {
+        if (usarFechas && fechaDesde != null && fechaHasta != null && fechaHasta.before(fechaDesde)) {
             JOptionPane.showMessageDialog(this,
                     "La fecha hasta no puede ser anterior a la fecha desde",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Construir consulta SQL
-        final StringBuilder sql = new StringBuilder("SELECT ID_EVE, TIT_EVE,"
-                + " FEC_EVE, HOR_EVE, DES_EVE FROM EVENTOS WHERE ID_USU=?");
+        final StringBuilder sql = new StringBuilder("SELECT ID_EVE, TIT_EVE, FEC_EVE, HOR_EVE, DES_EVE FROM EVENTOS WHERE ID_USU=?");
 
         if (!titulo.isEmpty()) {
             sql.append(" AND TIT_EVE LIKE ?");
@@ -340,18 +333,16 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
 
         sql.append(" ORDER BY FEC_EVE, HOR_EVE");
 
-        // Ejecutar búsqueda en segundo plano
         new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
                 try {
-                    // Limpiar panel de resultados
                     panelResultados.removeAll();
 
                     try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
                         int paramIndex = 1;
 
-                        ps.setString(paramIndex++, id_usu);
+                        ps.setInt(paramIndex++, Integer.getInteger(id_usu)); // <-- id_usu debe ser int
 
                         if (!titulo.isEmpty()) {
                             ps.setString(paramIndex++, "%" + titulo + "%");
@@ -370,20 +361,19 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
 
                             while (rs.next()) {
                                 hayResultados = true;
-                                String idEvento = rs.getString("ID_EVE");
+
+                                int idEvento = rs.getInt("ID_EVE"); // <-- ahora es int
                                 String tituloEvento = rs.getString("TIT_EVE");
                                 Date fechaEvento = rs.getDate("FEC_EVE");
                                 Date horaEvento = rs.getTime("HOR_EVE");
                                 String descripcion = rs.getString("DES_EVE");
 
-                                // Depuración: Imprimir los datos del evento encontrado
                                 System.out.println("Evento encontrado: ID=" + idEvento + ", Título=" + tituloEvento);
 
-                                // Obtener recordatorios para este evento
-                                List<Recordatorio> recordatorios = controlador.obtenerRecordatoriosEvento(idEvento);
+                                List<Recordatorio> recordatorios = controlador.obtenerRecordatoriosEvento(
+                                        Integer.toString(idEvento));
 
-                                // Crear panel para este evento
-                                JPanel panelEvento = crearPanelEvento(idEvento, tituloEvento,
+                                JPanel panelEvento = crearPanelEvento(Integer.toString(idEvento), tituloEvento,
                                         fechaEvento, horaEvento, descripcion, recordatorios);
 
                                 panelResultados.add(panelEvento);
