@@ -51,7 +51,7 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
      * Creates new form BuscarEventoVista1
      */
     private int id_usu;
-    private Connection conn;
+    private Connection conn=new ConexionBD().conectar();
     private RecordatorioControlador controlador;
     private ConexionBD bd;
 
