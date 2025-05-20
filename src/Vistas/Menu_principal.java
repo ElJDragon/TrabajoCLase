@@ -131,6 +131,7 @@ public class Menu_principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)))
                 .addGap(39, 39, 39))
+
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,6 +173,7 @@ public class Menu_principal extends javax.swing.JFrame {
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
 
     /**
      * @param args the command line arguments
