@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Evento {
+
     private String idEvento;
     private String idUsuario;
     private String titulo;
@@ -12,7 +13,6 @@ public class Evento {
     private LocalTime hora;
 
     // Getters y Setters
-
     public String getIdEvento() {
         return idEvento;
     }
@@ -59,5 +59,13 @@ public class Evento {
 
     public void setHora(LocalTime hora) {
         this.hora = hora;
+    }
+
+    public int getIdUsuarioAsInt() {
+        try {
+            return Integer.parseInt(this.idUsuario);
+        } catch (NumberFormatException e) {
+            return -1; // O manejar el error como prefieras
+        }
     }
 }

@@ -193,36 +193,39 @@ public class AgendaPersonalizada extends JFrame {
     }
 
     private void cargarEventosUsuario() {
-        // Limpiar el panel antes de cargar nuevos eventos
         panelEventos.removeAll();
 
         if (!SesionUsuario.sesionActiva()) {
             panelEventos.add(new JLabel("No hay sesión activa"));
             panelEventos.revalidate();
-            panelEventos.repaint();
             return;
         }
 
         try {
-            // Obtener eventos del usuario actual
-            List<Evento> eventos = controlador.obtenerPorUsuario(
-                    SesionUsuario.getUsuarioActual().getUsername() // o getId() según tu estructura
-            );
+            // Obtener el ID del usuario como string (como estaba originalmente)
+            int idUsuario = SesionUsuario.getUsuarioActual().getId();
 
-            // Actualizar el contador
+            List<Evento> eventos = controlador.obtenerPorUsuario(idUsuario);
             lblContador.setText("Total eventos: " + eventos.size());
 
             if (eventos.isEmpty()) {
                 panelEventos.add(new JLabel("No hay eventos registrados"));
             } else {
                 for (Evento evento : eventos) {
-                    JPanel panelEvento = crearPanelEvento(evento);
+                    JPanel panelEvento = new JPanel(new BorderLayout());
+                    panelEvento.setBorder(BorderFactory.createEtchedBorder());
+
+                    JLabel lblInfo = new JLabel(
+                            "<html><b>" + evento.getTitulo() + "</b><br>"
+                            + "Fecha: " + evento.getFecha() + " - Hora: " + evento.getHora()
+                            + "</html>");
+
+                    panelEvento.add(lblInfo, BorderLayout.CENTER);
                     panelEventos.add(panelEvento);
-                    panelEventos.add(Box.createRigidArea(new Dimension(0, 5))); // Espacio entre eventos
+                    panelEventos.add(Box.createRigidArea(new Dimension(0, 5)));
                 }
             }
 
-            // Forzar la actualización de la interfaz
             panelEventos.revalidate();
             panelEventos.repaint();
 
