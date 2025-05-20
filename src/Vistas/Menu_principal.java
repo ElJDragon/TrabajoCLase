@@ -72,12 +72,7 @@ public class Menu_principal extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 255, 204));
         jLabel1.setText("Escoja una opcion:");
 
-        jButton1.setText("Eventos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.setText("jButton1");
 
         jbtnReporte.setText("Repote de texto");
 
@@ -131,6 +126,7 @@ public class Menu_principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2)))
                 .addGap(39, 39, 39))
+
 
         );
         layout.setVerticalGroup(
