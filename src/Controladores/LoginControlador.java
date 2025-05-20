@@ -9,6 +9,7 @@ import BD.ConexionBD;
 import Modelos.SesionUsuario;
 import Modelos.Usuario_Model;
 import Vistas.Login_VIEW;
+import Vistas.Menu_principal;
 import java.awt.Color;
 import java.sql.*;
 import java.awt.event.ActionEvent;
@@ -101,6 +102,7 @@ public class LoginControlador implements ActionListener {
                 if (usuario != null) {
                     SesionUsuario.iniciarSesion(usuario);
                     JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
+                    Menu_principal menu = new Menu_principal(cc, Integer.toString(SesionUsuario.getUsuarioActual().getId()));
                     vista.dispose(); // Cerrar la vista de login
                     break;
                 } else {
@@ -111,6 +113,7 @@ public class LoginControlador implements ActionListener {
                     bordesTextos();
 
                 }
+
                 break;
             case "SALIR":
                 vista.dispose();
@@ -186,8 +189,6 @@ public class LoginControlador implements ActionListener {
 
         return null;
     }
-
-    
 
     private void mostrarFormularioRegistro() {
         Vistas.registro_View registro = new Vistas.registro_View();
