@@ -53,9 +53,10 @@ public class BuscarEventoVista1 extends javax.swing.JFrame {
     private String id_usu;
     private Connection conn;
     private RecordatorioControlador controlador;
+    private ConexionBD bd ;
 
     {
-        conn = ConexionBD.obtenerConexion();
+        conn = bd.conectar();
     }
 
     public BuscarEventoVista1(String id_usu) {

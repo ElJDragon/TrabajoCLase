@@ -87,7 +87,10 @@ public class VistaRecordatorios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaRecordatorios("U003", ConexionBD.obtenerConexion()).setVisible(true);
+                Connection cn;
+                ConexionBD bd=new ConexionBD();
+                cn=bd.conectar();
+                new VistaRecordatorios("U003", cn).setVisible(true);
             }
         });
     }

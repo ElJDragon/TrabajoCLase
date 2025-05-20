@@ -101,7 +101,6 @@ public class LoginControlador implements ActionListener {
                 if (usuario != null) {
                     SesionUsuario.iniciarSesion(usuario);
                     JOptionPane.showMessageDialog(vista, "Bienvenido: " + usuario.getNombre());
-                    abrirMenuPrincipal();
                     vista.dispose(); // Cerrar la vista de login
                     break;
                 } else {
@@ -172,6 +171,7 @@ public class LoginControlador implements ActionListener {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Usuario_Model(
+                        rs.getInt("iD_USU"),
                         rs.getString("USE_USU"),
                         rs.getString("PAS_USU"),
                         rs.getString("NOM_USU"),
@@ -187,10 +187,7 @@ public class LoginControlador implements ActionListener {
         return null;
     }
 
-    private void abrirMenuPrincipal() {
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-    }
+    
 
     private void mostrarFormularioRegistro() {
         Vistas.registro_View registro = new Vistas.registro_View();

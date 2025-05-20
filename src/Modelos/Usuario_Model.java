@@ -10,22 +10,29 @@ package Modelos;
  */
 
 public class Usuario_Model {
-    private String id;
+    private int id;
     private String username;
     private String password;
     private String nombre;
     private String apellido;
 
     // Constructor
-    public Usuario_Model(String id, String username, String password, String nombre, String apellido) {
+    public Usuario_Model(int id, String username, String password, String nombre, String apellido) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.nombre = nombre;
         this.apellido = apellido;
     }
+    public Usuario_Model( String username, String password, String nombre, String apellido) {
 
-  public String getId() {
+        this.username = username;
+        this.password = password;
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
+
+  public int getId() {
         return id;
     }
 

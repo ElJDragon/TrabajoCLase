@@ -135,7 +135,7 @@ public class AgendaPersonalizada extends JFrame {
 
         Evento nuevoEvento = new Evento();
         // Usar USE_USU en lugar de ID_USU si esa es la relación
-        nuevoEvento.setIdUsuario(SesionUsuario.getUsuarioActual().getId());// getUsername() devuelve USE_USU
+        nuevoEvento.setIdUsuario(String.valueOf(SesionUsuario.getUsuarioActual().getId()));// getUsername() devuelve USE_USU
         nuevoEvento.setTitulo(titulo);
         nuevoEvento.setDescripcion(txtDescripcion.getText().trim());
         nuevoEvento.setFecha(fecha);
