@@ -5,6 +5,7 @@
 package Vistas;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -174,7 +175,7 @@ public class Login_VIEW extends javax.swing.JFrame {
         lblContrasenia.setForeground(Color.WHITE);
         lblContrasenia.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
 
-        jLblCrear.setText("¿No tiene una cuenta? Cree una");
+        jLblCrear.setText("¿No tiene una cuenta? \n Cree una aqui abajo");
         jLblCrear.setForeground(Color.WHITE);
 
         jBtnIngresar.setText("Ingresar");
@@ -206,13 +207,22 @@ public class Login_VIEW extends javax.swing.JFrame {
     }
 
     private void configurarFondoAnimado() {
+        setLayout(null);  // Desactivamos el layout automático
+
+        // Fondo
+        ImageIcon fondoIcon = new ImageIcon(getClass().getResource("/IMG/imgcorteSuperior.jpg"));
+        Image fondoImg = fondoIcon.getImage().getScaledInstance(600, 500, Image.SCALE_SMOOTH);
+        JLabel fondoLabel = new JLabel(new ImageIcon(fondoImg));
+        fondoLabel.setBounds(0, 0, 600, 500);
+
+        // Crear JLayeredPane y agregar componentes
         layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0, 0, 600, 500);
+        layeredPane.setPreferredSize(new Dimension(600, 500));
 
-        fondoGif = new JLabel(new ImageIcon(getClass().getResource("/IMG/giphy.gif")));
-        fondoGif.setBounds(0, 0, 600, 500);
-        layeredPane.add(fondoGif, Integer.valueOf(0));
+        // Agregar fondo al fondo (capa más baja)
+        layeredPane.add(fondoLabel, JLayeredPane.DEFAULT_LAYER);
 
+        // Posicionar los demás componentes
         jLabel1.setBounds(140, 10, 400, 40);
         jLblIcon.setBounds(250, 50, 100, 100);
         jlblFoto.setBounds(260, 140, 100, 20);
@@ -225,17 +235,18 @@ public class Login_VIEW extends javax.swing.JFrame {
         jBtnCrear.setBounds(250, 330, 120, 30);
         jbtnSalir.setBounds(250, 370, 120, 30);
 
-        layeredPane.add(jLabel1, Integer.valueOf(1));
-        layeredPane.add(jLblIcon, Integer.valueOf(1));
-        layeredPane.add(jlblFoto, Integer.valueOf(1));
-        layeredPane.add(lblUsuario, Integer.valueOf(1));
-        layeredPane.add(jTxtUsuario, Integer.valueOf(1));
-        layeredPane.add(lblContrasenia, Integer.valueOf(1));
-        layeredPane.add(jPswContrasenia, Integer.valueOf(1));
-        layeredPane.add(jBtnIngresar, Integer.valueOf(1));
-        layeredPane.add(jLblCrear, Integer.valueOf(1));
-        layeredPane.add(jBtnCrear, Integer.valueOf(1));
-        layeredPane.add(jbtnSalir, Integer.valueOf(1));
+        // Agregar todos a una capa superior
+        layeredPane.add(jLabel1, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(jLblIcon, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(jlblFoto, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(lblUsuario, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(jTxtUsuario, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(lblContrasenia, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(jPswContrasenia, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(jBtnIngresar, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(jLblCrear, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(jBtnCrear, JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(jbtnSalir, JLayeredPane.PALETTE_LAYER);
 
         setContentPane(layeredPane);
         setSize(600, 500);

@@ -5,11 +5,15 @@
 package Vistas;
 
 import BD.ConexionBD;
+import Controladores.CalendarioControlador;
+import Controladores.LoginControlador;
 import Controladores.RecordatorioControlador;
 import Controladores.RegistroControlador;
 import Modelos.SesionUsuario;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.sql.*;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -21,15 +25,29 @@ public class Menu_principal extends javax.swing.JFrame {
     /**
      * Creates new form Menu_principal
      */
+    SesionUsuario sesion = new SesionUsuario();
+    Agenda agenda = new Agenda();
+    Login_VIEW login = new Login_VIEW();
+    // Cargar imagen de fondo
+
     public Menu_principal() {
-        initComponents();
-        JPanel recordatorios = new PanelListaRecordatorios();
-        Recordatorios.add(recordatorios);
+    // Carga la imagen
+    ImageIcon fondoIcon = new ImageIcon(getClass().getResource("/IMG/imgCOmpleta.jpg"));
+    Image imagen = fondoIcon.getImage();
 
-        recordatorios.setSize(new Dimension(400, 300));
-        setLocationRelativeTo(null);
+    // Aplica el fondo al frame
+    FondoPanel fondo = new FondoPanel(imagen);
+    setContentPane(fondo); // Aplica el fondo ANTES de initComponents()
 
-    }
+    initComponents(); // Ya con el fondo aplicado
+
+    JPanel recordatorios = new PanelListaRecordatorios();
+    Recordatorios.add(recordatorios);
+    recordatorios.setSize(new Dimension(400, 300));
+
+    setLocationRelativeTo(null); // Centrar ventana
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,22 +60,37 @@ public class Menu_principal extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbtnReporte = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         Recordatorios = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setFont(new java.awt.Font("Stencil", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 255, 204));
+        jLabel1.setText("Escoja una opcion:");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Eventos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        jbtnReporte.setText("Repote de texto");
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Reporte de grafico");
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Cambiar de usuario");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        Recordatorios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout RecordatoriosLayout = new javax.swing.GroupLayout(Recordatorios);
         Recordatorios.setLayout(RecordatoriosLayout);
@@ -70,58 +103,79 @@ public class Menu_principal extends javax.swing.JFrame {
             .addGap(0, 338, Short.MAX_VALUE)
         );
 
+        jButton2.setText("Cerrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                .addComponent(Recordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbtnReporte)
+                                .addComponent(jButton1))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(Recordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Recordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(Recordatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jButton4)
+                .addGap(52, 52, 52)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(31, 31, 31)
+                .addComponent(jbtnReporte)
+                .addGap(27, 27, 27)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Controladores.CalendarioControlador contCalendario = new CalendarioControlador(agenda, String.valueOf(sesion.getUsuarioActual().getId()));
+        agenda.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        sesion.cerrarSesion();
+        Controladores.LoginControlador contlogin = new LoginControlador(login);
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    SesionUsuario sesion = new SesionUsuario();
-    ConexionBD bd = new ConexionBD();
-    Connection conexion = bd.conectar();
-    int usuario = sesion.getUsuarioActual().getId();
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Recordatorios;
@@ -130,5 +184,6 @@ public class Menu_principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jbtnReporte;
     // End of variables declaration//GEN-END:variables
 }
